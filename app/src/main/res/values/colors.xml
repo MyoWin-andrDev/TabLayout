@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="green">#4CAF50</color>
+    <color name="blue">#3F51B5</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="gray_light">#FFEEEEEE</color>  <!-- Very light gray -->
+    <color name="gray_lighter">#FFDDDDDD</color> <!-- Light gray -->
+    <color name="gray_medium">#FFAAAAAA</color>  <!-- Medium gray -->
+    <color name="gray_dark">#FF777777</color>    <!-- Dark gray -->
+    <color name="gray_darker">#FF444444</color> <!-- Very dark gray -->
+</resources>
