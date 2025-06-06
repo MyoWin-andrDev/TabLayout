@@ -17,15 +17,12 @@ class CustomAdapter(private val customList : List<EntityModel>) : RecyclerView.A
 
     override fun getItemCount(): Int = customList.size
 
-    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.binding.apply {
-            val item = customList[position]
-            tvName.text = item.name
-            tvDescription.text = item.description
-            Glide.with(root.context)
-                .load(item.image)
-                .thumbnail(0.1f)
-                .into(ivImage)
+    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) = with(holder.binding){
+        val item = customList[position]
+        tvName.text = item.name
+        tvDescription.text = item.description
+        customList.forEach { item ->
+            Glide.with(root.context).load(item.image).preload()
         }
     }
 }
