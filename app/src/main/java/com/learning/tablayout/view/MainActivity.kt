@@ -11,30 +11,40 @@ import com.learning.tablayout.fragment.PlanetsFragment
 import com.learning.tablayout.fragment.PlantsFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        binding.apply {
-            setContentView(root)
-            var fragment : Fragment = PlantsFragment()
-            replaceFragment(fragment)
-            tlMain.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    when(tab?.position){
-                        0 -> fragment = PlantsFragment()
-                        1 -> fragment = AnimalsFragment()
-                        2 -> fragment = PlanetsFragment()
-                    }
-                    replaceFragment(fragment)
-                }
+        setContentView(binding.root)
 
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
-            })
-        }
+        replaceFragment(PlantsFragment())
+
+        setupTabListener()
     }
-    private fun replaceFragment(fragment : Fragment){
-        supportFragmentManager.beginTransaction().replace(R.id.fcMain, fragment).addToBackStack("").commit()
+
+    private fun setupTabListener() = with(binding.tlMain) {
+        addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                val selectedFragment = when (tab?.position) {
+                    0 -> PlantsFragment()
+                    1 -> AnimalsFragment()
+                    2 -> PlanetsFragment()
+                    else -> null
+                }
+                selectedFragment?.let { replaceFragment(it) }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fcMain, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }
